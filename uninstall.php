@@ -6,7 +6,12 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) || ! current_user_can( 'activate_plugins
 // remove options added by AddonPayments Plugin
 
 $options = array(
-    'option1'
+    'addonp_user_type_label_field',
+    'addonp_price_with_tax_field',
+    'addonp_percent_tax_field',
+    'addonp_apply_retention_field',
+    'addonp_percent_retention_field',
+    'addonp_price_with_or_without_tax_field'
     );
 
 foreach ( $options as $option ){
