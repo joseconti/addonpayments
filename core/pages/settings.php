@@ -20,27 +20,27 @@ function addonp_register_settings_submenu_page_callback(){ ?>
 	         <?php if( $active_tab == 'basic_settings' ) { ?>
                 <p><?php
                 _e('AddonPayments Settings', 'addonpayments' ); ?></p><?php
-                settings_fields( "addon-basic-settings-section");
-                do_settings_sections( "addon-basic-settings-options" );
+                settings_fields( "addonp-basic-settings-section");
+                do_settings_sections( "addonp-basic-settings-options" );
             } else { ?>
                 <p><?php
                 _e( 'AddonPayments Advanced Settings', 'addonpayments' ); ?></p><?php
-                settings_fields( "addon-advanced-settings-section");
-                do_settings_sections( "addon-advanced-settings-options" );
+                settings_fields( "addonp-advanced-settings-section");
+                do_settings_sections( "addonp-advanced-settings-options" );
                 }
             submit_button();
             ?>
         </form>
         <script type="text/javascript">
 
-              var preavisonotificar = document.querySelector( '.js-switch-preavisonotificar' );
-              if ( preavisonotificar ) {
-                  var switchery = new Switchery(preavisonotificar, { size: 'small' } );
+              var addonp_price_with_tax_field = document.querySelector( '.js-switch-addonp_price_with_tax_field' );
+              if ( addonp_price_with_tax_field ) {
+                  var switchery = new Switchery( addonp_price_with_tax_field, { size: 'small' } );
                   }
 
-              var repartonotificar = document.querySelector( '.js-switch-repartonotificar' );
-              if ( repartonotificar ) {
-                var switchery = new Switchery(repartonotificar, { size: 'small' } );
+              var addonp_apply_retention = document.querySelector( '.js-switch-addonp_apply_retention' );
+              if ( addonp_apply_retention ) {
+                var switchery = new Switchery( addonp_apply_retention, { size: 'small' } );
                 }
 
         </script>
@@ -48,12 +48,12 @@ function addonp_register_settings_submenu_page_callback(){ ?>
 <?php }
 
 function addonp_settings_load_css( $hook ){
-    global $seurconfig;
-    if( $seurconfig != $hook ) {
+    global $addon_settings;
+    if( $addon_settings != $hook ) {
         return;
     } else {
-        wp_register_style(  'addon_switchery_css', ADDONP_PLUGIN_URL . '/assets/css/switchery.css', array(), ADDONP_VERSION  );
-        wp_enqueue_style(   'addon_switchery_css');
+        wp_register_style(  'addonp_switchery_css', ADDONP_PLUGIN_URL . '/assets/css/switchery.css', array(), ADDONP_VERSION  );
+        wp_enqueue_style(   'addonp_switchery_css');
     }
 }
 add_action( 'admin_enqueue_scripts', 'addonp_settings_load_css' );
@@ -62,5 +62,3 @@ add_action( 'admin_enqueue_scripts', 'addonp_settings_load_css' );
 
 include_once( 'setting-options/basic-settings.php'     );
 include_once( 'setting-options/advanced-settings.php' );
-
-?>
