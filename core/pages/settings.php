@@ -43,6 +43,28 @@ function addonp_register_settings_submenu_page_callback(){ ?>
                 var switchery = new Switchery( addonp_apply_retention, { size: 'small' } );
                 }
 
+              var addonp_apply_retention_private = document.querySelector( '.js-switch-addonp_apply_retention_to_private' );
+              if ( addonp_apply_retention_private ) {
+                var switchery = new Switchery( addonp_apply_retention_private, { size: 'small' } );
+                }
+
+              var addonp_apply_retention_business = document.querySelector( '.js-switch-addonp_apply_retention_to_business' );
+              if ( addonp_apply_retention_business ) {
+                var switchery = new Switchery( addonp_apply_retention_business, { size: 'small' } );
+                }
+
+              var addonp_apply_retention_self = document.querySelector( '.js-switch-addonp_apply_retention_to_self_employed' );
+              if ( addonp_apply_retention_self ) {
+                var switchery = new Switchery( addonp_apply_retention_self, { size: 'small' } );
+                }
+
+              var addonp_test_mode = document.querySelector( '.js-switch-addonp_test_mode' );
+              if ( addonp_test_mode ) {
+                var switchery = new Switchery( addonp_test_mode, { size: 'small' } );
+                }
+
+
+
         </script>
     </div>
 <?php }

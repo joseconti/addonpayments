@@ -11,7 +11,14 @@ $options = array(
     'addonp_percent_tax_field',
     'addonp_apply_retention_field',
     'addonp_percent_retention_field',
-    'addonp_price_with_or_without_tax_field'
+    'addonp_price_with_or_without_tax_field',
+    'addonp_apply_retention_to_private_field',
+    'addonp_apply_retention_to_business_field',
+    'addonp_apply_retention_to_self_employed_field',
+    'addonp_test_mode_field',
+    'addonp_merchant_id_field',
+    'addonp_shared_secret_field',
+    'addonp_currency_field'
     );
 
 foreach ( $options as $option ){
