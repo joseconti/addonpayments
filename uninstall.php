@@ -18,7 +18,9 @@ $options = array(
     'addonp_test_mode_field',
     'addonp_merchant_id_field',
     'addonp_shared_secret_field',
-    'addonp_currency_field'
+    'addonp_currency_field',
+    'addonp_auto_set_flag_field',
+    'addonp_account_field'
     );
 
 foreach ( $options as $option ){
