@@ -36,8 +36,8 @@
     // Add Shortcode
     function addonp_price_shortcode( $atts ) {
 
-        $test			   = get_option( 'addonp_test_mode_field'           	  );
-        $merchand_id	   = get_option( 'addonp_merchant_id_field'           	  );
+        $test              = get_option( 'addonp_test_mode_field'                 );
+        $merchand_id       = get_option( 'addonp_merchant_id_field'               );
         $secret            = get_option( 'addonp_shared_secret_field'             );
         $user_type         = get_option( 'addonp_user_type_label_field'           );
         $tax_active        = get_option( 'addonp_price_with_tax_field'            );
@@ -46,9 +46,11 @@
         $retention         = get_option( 'addonp_apply_retention_field'           );
         $percent_retention = get_option( 'addonp_percent_retention_field'         );
         $currency          = get_option( 'addonp_currency_field'                  );
+        $auto_set_flag     = get_option( 'addonp_auto_set_flag_field'             );
+        $account		   = get_option('addonp_account_field'                    );
         $timestamp         = get_the_time('YmdHis');
         $str               = 'abcdefghijklmnABCEDEFGHIJKLMNO1234567890';
-        $orderid		   = str_shuffle( $str );
+        $orderid           = str_shuffle( $str );
 
         // Attributes
         $atts = shortcode_atts(
@@ -59,51 +61,68 @@
             $atts
         );
 
+        if ( $test == '1' ) {
+	        $url = 'https://hpp.sandbox.addonpayments.com/pay';
+        } else {
+	        $url = 'https://hpp.addonpayments.com/pay';
+        }
+
         $price = $atts['price'];
 
         if ( $price_with_tax == '1' ) {
-	        $tax = ( $price * ( $percent_tax / 100 ) );
+            $tax = ( $price * ( $percent_tax / 100 ) );
         } else {
-	        $tax = '0';
+            $tax = '0';
         }
 
         if ( $retention == '1' ) {
-	        $renten = ( $price * ( $percent_retention / 100 ) );
+            $renten = ( $price * ( $percent_retention / 100 ) );
         } else {
-	        $renten = '0';
+            $renten = '0';
         }
 
         $final_price_before_point = $price + tax - $renten;
-        $final_price = number_format( $final_price_before_point, 2, '', '');
-        $string_sha1_1 =  sha1( $timestamp . $merchand_id . $orderid . $final_price . $currency );
-        $string_sha1_2 =  sha1( $string_sha1_1 . $secret );
+        $final_price   = number_format( $final_price_before_point, 2, '', '');
+        $string_sha1_1 =  sha1( $timestamp . '.' . $merchand_id . '.' . $orderid . '.' . $final_price . '.' . $currency );
+        $string_sha1_2 =  sha1( $string_sha1_1 . '.' . $secret );
 
 
-        $form = '<form method="POST" action="https://hpp.sandbox.addonpayments.com/pay">
-				<input type="hidden" name="TIMESTAMP" value="' . $timestamp . '">
-				<input type="hidden" name="MERCHANT_ID" value="' . $merchand_id . '">
-				<input type="hidden" name="ACCOUNT" value="">
-				<input type="hidden" name="ORDER_ID" value="' . $orderid . '">
-				<input type="hidden" name="AMOUNT" value="' . $final_price . '">
-				<input type="hidden" name="CURRENCY" value="' . $currency . '">
-				<input type="hidden" name="SHA1HASH" value="' . $string_sha1_2 . '">
-				<input type="hidden" name="AUTO_SETTLE_FLAG" value="1">
-				<input type="hidden" name="COMMENT1" value="Canal móvil">
-				<input type="hidden" name="COMMENT2" value="Pago inicial">
-				<input type="hidden" name="SHIPPING_CODE" value="E77|4QJ">
-				<input type="hidden" name="SHIPPING_CO" value="GB">
-				<input type="hidden" name="BILLING_CODE" value="R90|ZQ7">
-				<input type="hidden" name="BILLING_CO" value="GB">
-				<input type="hidden" name="CUST_NUM" value="332a85b">
-				<input type="hidden" name="VAR_REF" value="Invoice 7564a">
-				<input type="hidden" name="PROD_ID" value="' . $atts['product'] . '">
-				<input type="hidden" name="HPP_LANG" value="GB">
-				<input type="hidden" name="HPP_VERSION" value="2">
-				<input type="hidden" name="MERCHANT_RESPONSE_URL" value="https://www.example.com/responseUrl">
-				<input type="hidden" name="CARD_PAYMENT_BUTTON" value="Pagar ahora">
-				<input type="hidden" name="SUPPLEMENTARY_DATA" value="Valor personalizado">
-				<input type="submit" value="Haz clic aquí para comprar">
-				</form>';
+        $form = '<div id="addonpayments">
+        			<form method="POST" action="' . $url . '">
+
+		                <label for="Shipping Comments">Shipping Comments</label>
+		                	<input type="text" name="COMMENT1" value=""><br>
+
+		                <label for="Name">Shipping Name</label>
+		                	<input type="text" name="VAR_REF" value=""><br>
+
+						<label for="Shipping Adress">Shipping Adress</label>
+		                	<input type="text" name="VAR_REF" value=""><br>
+
+
+
+		                <input type="hidden" name="TIMESTAMP" value="' . $timestamp . '">
+		                <input type="hidden" name="MERCHANT_ID" value="' . $merchand_id . '">
+		                <input type="hidden" name="ACCOUNT" value="' . $account . '">
+		                <input type="hidden" name="ORDER_ID" value="' . $orderid . '">
+		                <input type="hidden" name="AMOUNT" value="' . $final_price . '">
+		                <input type="hidden" name="CURRENCY" value="' . $currency . '">
+		                <input type="hidden" name="SHA1HASH" value="' . $string_sha1_2 . '">
+		                <input type="hidden" name="AUTO_SETTLE_FLAG" value="' . $auto_set_flag . '">
+		                <input type="hidden" name="COMMENT2" value="Pago inicial">
+		                <input type="hidden" name="SHIPPING_CODE" value="E77|4QJ">
+		                <input type="hidden" name="SHIPPING_CO" value="GB">
+		                <input type="hidden" name="BILLING_CODE" value="R90|ZQ7">
+		                <input type="hidden" name="BILLING_CO" value="GB">
+		                <input type="hidden" name="CUST_NUM" value="332a85b">
+		                <input type="hidden" name="PROD_ID" value="' . $atts['product'] . '">
+		                <input type="hidden" name="HPP_LANG" value="GB">
+		                <input type="hidden" name="HPP_VERSION" value="2">
+		                <input type="hidden" name="MERCHANT_RESPONSE_URL" value="https://www.example.com/responseUrl">
+		                <input type="hidden" name="CARD_PAYMENT_BUTTON" value="Pagar ahora">
+		                <input type="hidden" name="SUPPLEMENTARY_DATA" value="Valor personalizado">
+		                <input type="submit" value="Haz clic aquí para comprar">
+		            </form>';
 
         return $form;
 
