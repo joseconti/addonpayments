@@ -77,11 +77,11 @@
         $percent_tax         = get_option( 'addonp_percent_tax_field'               );
         $text_excluded_tax   = get_option( 'addonp_post_price_excluded_tax_field'   );
         $text_included_tax   = get_option( 'addonp_post_price_included_tax_field'   );
-        $retention  		 = get_option( 'addonp_apply_retention_field'           );
+        $retention           = get_option( 'addonp_apply_retention_field'           );
         $show_text_retention = get_option('addonp_show_text_retention_field'        );
         $text_retention      = get_option('addonp_text_active_retention_field'      );
-        $text_buy_now		 = get_option('addonp_text_buy_now_field'				);
-        $text_pay_now 		 = get_option('addonp_text_pay_now'						);
+        $text_buy_now        = get_option('addonp_text_buy_now_field'               );
+        $text_pay_now        = get_option('addonp_text_pay_now'                     );
 
 
         $nonce_field         = wp_nonce_field( 'addonpayments_action', 'addonpayments_nonce_field' );
@@ -149,7 +149,7 @@
             if ( empty( $text_retention ) ) {
             $reten_field = "<span id='sub-text-price'>" . __('(A Retention will be applied if is needed)', 'addonpayments' ) . "</span><br />";
             } else {
-	            $reten_field = "<span id='sub-text-price'>" . $text_retention . "</span><br />";
+                $reten_field = "<span id='sub-text-price'>" . $text_retention . "</span><br />";
             }
         } else {
             $reten_field = '';
@@ -241,20 +241,20 @@
             $apply_retention_to_private       = get_option('addonp_apply_retention_to_private_field');
             $apply_retention_to_business      = get_option('addonp_apply_retention_to_business_field');
             $apply_retention_to_self_employed = get_option('addonp_apply_retention_to_self_employed_field');
-            $text_pay_now_addonP 			  = get_option('addonp_text_pay_addonpayments'			);
-            $text_continue_to_pay			  = get_option('addonp_text_continue_to_pay_button_field');
+            $text_pay_now_addonP              = get_option('addonp_text_pay_addonpayments'          );
+            $text_continue_to_pay             = get_option('addonp_text_continue_to_pay_button_field');
 
 
             if ( ! empty( $text_pay_now_addonP ) ) {
-	            $text_pay_now_addonP_buttom = $text_pay_now_addonP;
+                $text_pay_now_addonP_buttom = $text_pay_now_addonP;
             } else {
-	            $text_pay_now_addonP_buttom = __( 'Pay Now', 'adonpayments' );
+                $text_pay_now_addonP_buttom = __( 'Pay Now', 'adonpayments' );
             }
 
             if ( ! empty( $text_continue_to_pay ) ) {
-	            $text_continue_to_pay_buttom = $text_continue_to_pay;
+                $text_continue_to_pay_buttom = $text_continue_to_pay;
             } else {
-	            $text_continue_to_pay_buttom = __( 'Continue to AddonPayments to Pay', 'adonpayments' );
+                $text_continue_to_pay_buttom = __( 'Continue to AddonPayments to Pay', 'adonpayments' );
             }
 
             if ( $billing_country ) {
@@ -309,30 +309,30 @@
 
             // Add meta to Order
 
-            add_post_meta( $Order, '_addonp_order_id', 				    $Order,                     true );
-            add_post_meta( $Order, '_addonp_user_type', 				$user_type,                 true );
-            add_post_meta( $Order, '_addonp_Full_Name', 				$Full_Name,                 true );
-            add_post_meta( $Order, '_addonp_shipping_country', 			$shipping_country,          true );
-            add_post_meta( $Order, '_addonp_shipping_state', 			$shipping_state,            true );
-            add_post_meta( $Order, '_addonp_shipping_postcode', 		$shipping_postcode,         true );
-            add_post_meta( $Order, '_addonp_shipping_address', 			$shipping_address,          true );
-            add_post_meta( $Order, '_addonp_shipping_email', 			$shipping_email,            true );
-            add_post_meta( $Order, '_addonp_full_name_billing', 		$full_name_billing,         true );
-            add_post_meta( $Order, '_addonp_nic_tic_vat_name_billing', 	$nic_tic_vat_name_billing,	true );
-            add_post_meta( $Order, '_addonp_billing_country', 			$billing_country,           true );
-            add_post_meta( $Order, '_addonp_billing_state', 			$billing_state,             true );
-            add_post_meta( $Order, '_addonp_billing_postcode', 			$billing_postcode,          true );
-            add_post_meta( $Order, '_addonp_billing_address', 			$billing_address,           true );
-            add_post_meta( $Order, '_addonp_billing_email', 			$billing_email,             true );
-            add_post_meta( $Order, '_addonp_PROD_ID', 					$PROD_ID,                  	true );
-            add_post_meta( $Order, '_addonp_COMMENT1', 					$COMMENT1,                  true );
-            add_post_meta( $Order, '_addonp_base_price', 				$base_price,                true );
-            add_post_meta( $Order, '_addonp_tax_price', 				$tax,                       true );
-            add_post_meta( $Order, '_addonp_tax_apply', 				$percent_tax,               true );
-            add_post_meta( $Order, '_addonp_retention_apply', 			$percent_retention,         true );
-            add_post_meta( $Order, '_addonp_retention_price', 			$retention,                 true );
-            add_post_meta( $Order, '_addonp_link_where_bought', 		$post_permanlink,           true );
-            add_post_meta( $Order, '_addonp_final_price_addon', 		$final_price,               true );
+            add_post_meta( $Order, '_addonp_order_id',                  $Order,                     true );
+            add_post_meta( $Order, '_addonp_user_type',                 $user_type,                 true );
+            add_post_meta( $Order, '_addonp_Full_Name',                 $Full_Name,                 true );
+            add_post_meta( $Order, '_addonp_shipping_country',          $shipping_country,          true );
+            add_post_meta( $Order, '_addonp_shipping_state',            $shipping_state,            true );
+            add_post_meta( $Order, '_addonp_shipping_postcode',         $shipping_postcode,         true );
+            add_post_meta( $Order, '_addonp_shipping_address',          $shipping_address,          true );
+            add_post_meta( $Order, '_addonp_shipping_email',            $shipping_email,            true );
+            add_post_meta( $Order, '_addonp_full_name_billing',         $full_name_billing,         true );
+            add_post_meta( $Order, '_addonp_nic_tic_vat_name_billing',  $nic_tic_vat_name_billing,  true );
+            add_post_meta( $Order, '_addonp_billing_country',           $billing_country,           true );
+            add_post_meta( $Order, '_addonp_billing_state',             $billing_state,             true );
+            add_post_meta( $Order, '_addonp_billing_postcode',          $billing_postcode,          true );
+            add_post_meta( $Order, '_addonp_billing_address',           $billing_address,           true );
+            add_post_meta( $Order, '_addonp_billing_email',             $billing_email,             true );
+            add_post_meta( $Order, '_addonp_PROD_ID',                   $PROD_ID,                   true );
+            add_post_meta( $Order, '_addonp_COMMENT1',                  $COMMENT1,                  true );
+            add_post_meta( $Order, '_addonp_base_price',                $base_price,                true );
+            add_post_meta( $Order, '_addonp_tax_price',                 $tax,                       true );
+            add_post_meta( $Order, '_addonp_tax_apply',                 $percent_tax,               true );
+            add_post_meta( $Order, '_addonp_retention_apply',           $percent_retention,         true );
+            add_post_meta( $Order, '_addonp_retention_price',           $retention,                 true );
+            add_post_meta( $Order, '_addonp_link_where_bought',         $post_permanlink,           true );
+            add_post_meta( $Order, '_addonp_final_price_addon',         $final_price,               true );
 
             $string_sha1_1 = sha1( $timestamp . '.' . $merchand_id . '.' . $Order . '.' . $final_price . '.' . $currency );
             $string_sha1_2 = sha1( $string_sha1_1 . '.' . $secret );
@@ -386,112 +386,112 @@
 
         if ( isset( $_POST['RESULT'] ) ) {
 
-			if ( isset( $_POST['RESULT'] ) ) 				$result 				= sanitize_text_field( $_POST['RESULT'] 				);
-			if ( isset( $_POST['AUTHCODE'] ) ) 				$authcode 				= sanitize_text_field( $_POST['AUTHCODE'] 				);
-			if ( isset( $_POST['MESSAGE'] ) ) 				$message 				= sanitize_text_field( $_POST['MESSAGE'] 				);
-			if ( isset( $_POST['PASREF'] ) ) 				$pasref 				= sanitize_text_field( $_POST['PASREF'] 				);
-			if ( isset( $_POST['AVSPOSTCODERESPONSE'] ) ) 	$avspostcoderesponse	= sanitize_text_field( $_POST['AVSPOSTCODERESPONSE']	);
-			if ( isset( $_POST['AVSADDRESSRESPONSE'] ) )  	$avsaddressresponse 	= sanitize_text_field( $_POST['AVSADDRESSRESPONSE'] 	);
-			if ( isset( $_POST['CVNRESULT'] ) ) 			$cvnresult 				= sanitize_text_field( $_POST['CVNRESULT'] 				);
-			if ( isset( $_POST['ACCOUNT'] ) ) 				$account 				= sanitize_text_field( $_POST['ACCOUNT'] 				);
-			if ( isset( $_POST['ORDER_ID'] ) ) 				$order_id 				= sanitize_text_field( $_POST['ORDER_ID'] 				);
-			if ( isset( $_POST['TIMESTAMP'] ) ) 			$timestamp 				= sanitize_text_field( $_POST['TIMESTAMP'] 				);
-			if ( isset( $_POST['AMOUNT'] ) ) 				$amount 				= sanitize_text_field( $_POST['AMOUNT'] 				);
-			if ( isset( $_POST['BATCHID'] ) ) 				$batchid 				= sanitize_text_field( $_POST['BATCHID'] 				);
-			if ( isset( $_POST['SHA1HASH'] ) ) 				$sha1hash 				= sanitize_text_field( $_POST['SHA1HASH'] 				);
+            if ( isset( $_POST['RESULT'] ) )                $result                 = sanitize_text_field( $_POST['RESULT']                 );
+            if ( isset( $_POST['AUTHCODE'] ) )              $authcode               = sanitize_text_field( $_POST['AUTHCODE']               );
+            if ( isset( $_POST['MESSAGE'] ) )               $message                = sanitize_text_field( $_POST['MESSAGE']                );
+            if ( isset( $_POST['PASREF'] ) )                $pasref                 = sanitize_text_field( $_POST['PASREF']                 );
+            if ( isset( $_POST['AVSPOSTCODERESPONSE'] ) )   $avspostcoderesponse    = sanitize_text_field( $_POST['AVSPOSTCODERESPONSE']    );
+            if ( isset( $_POST['AVSADDRESSRESPONSE'] ) )    $avsaddressresponse     = sanitize_text_field( $_POST['AVSADDRESSRESPONSE']     );
+            if ( isset( $_POST['CVNRESULT'] ) )             $cvnresult              = sanitize_text_field( $_POST['CVNRESULT']              );
+            if ( isset( $_POST['ACCOUNT'] ) )               $account                = sanitize_text_field( $_POST['ACCOUNT']                );
+            if ( isset( $_POST['ORDER_ID'] ) )              $order_id               = sanitize_text_field( $_POST['ORDER_ID']               );
+            if ( isset( $_POST['TIMESTAMP'] ) )             $timestamp              = sanitize_text_field( $_POST['TIMESTAMP']              );
+            if ( isset( $_POST['AMOUNT'] ) )                $amount                 = sanitize_text_field( $_POST['AMOUNT']                 );
+            if ( isset( $_POST['BATCHID'] ) )               $batchid                = sanitize_text_field( $_POST['BATCHID']                );
+            if ( isset( $_POST['SHA1HASH'] ) )              $sha1hash               = sanitize_text_field( $_POST['SHA1HASH']               );
 
-			$merchand_id = get_option( 'addonp_merchant_id_field'   );
-			$secret      = get_option( 'addonp_shared_secret_field' );
-			$final_price = get_post_meta( $order_id, '_addonp_final_price_addon', true );
+            $merchand_id = get_option( 'addonp_merchant_id_field'   );
+            $secret      = get_option( 'addonp_shared_secret_field' );
+            $final_price = get_post_meta( $order_id, '_addonp_final_price_addon', true );
 
-			$string_sha1_1 = sha1( $timestamp . '.' . $merchand_id . '.' . $order_id . '.' . $result . '.' . $message . '.' . $pasref . '.' . $authcode );
+            $string_sha1_1 = sha1( $timestamp . '.' . $merchand_id . '.' . $order_id . '.' . $result . '.' . $message . '.' . $pasref . '.' . $authcode );
             $string_sha1_2 = sha1( $string_sha1_1 . '.' . $secret );
 
             if ( $string_sha1_2 == $sha1hash ) {
-	            // hash OK
-	            if (  $result == '00' ) {
-		            // Transaction OK
-		            if ( $final_price ) {
-			            //Price Ok
-			            $update_order = array (
-				            'ID' 			=> $order_id,
-				            'post_status'	=> 'addonp-paid',
-						);
-			            wp_update_post( $update_order );
+                // hash OK
+                if (  $result == '00' ) {
+                    // Transaction OK
+                    if ( $final_price ) {
+                        //Price Ok
+                        $update_order = array (
+                            'ID'            => $order_id,
+                            'post_status'   => 'addonp-paid',
+                        );
+                        wp_update_post( $update_order );
 
-			            add_post_meta( $order_id, '_addonp_order_result', 				$result, 				true );
-			            add_post_meta( $order_id, '_addonp_order_authcode', 			$authcode, 				true );
-			            add_post_meta( $order_id, '_addonp_order_passref', 				$pasref, 				true );
-			            add_post_meta( $order_id, '_addonp_order_passref', 				$avspostcoderesponse,	true );
-			            add_post_meta( $order_id, '_addonp_order_avsaddressresponse',	$avsaddressresponse, 	true );
-			            add_post_meta( $order_id, '_addonp_order_cvnresult', 			$cvnresult, 			true );
-			            add_post_meta( $order_id, '_addonp_order_account', 				$account, 				true );
-			            add_post_meta( $order_id, '_addonp_order_batchid', 				$batchid, 				true );
+                        add_post_meta( $order_id, '_addonp_order_result',               $result,                true );
+                        add_post_meta( $order_id, '_addonp_order_authcode',             $authcode,              true );
+                        add_post_meta( $order_id, '_addonp_order_passref',              $pasref,                true );
+                        add_post_meta( $order_id, '_addonp_order_passref',              $avspostcoderesponse,   true );
+                        add_post_meta( $order_id, '_addonp_order_avsaddressresponse',   $avsaddressresponse,    true );
+                        add_post_meta( $order_id, '_addonp_order_cvnresult',            $cvnresult,             true );
+                        add_post_meta( $order_id, '_addonp_order_account',              $account,               true );
+                        add_post_meta( $order_id, '_addonp_order_batchid',              $batchid,               true );
 
-			            $process = 'Ok';
+                        $process = 'Ok';
 
-		            } else {
-			            // Different price
-			            $update_order = array (
-				            'ID' 			=> $order_id,
-				            'post_status'	=> 'addonp-check',
-						);
-			            wp_update_post( $update_order );
+                    } else {
+                        // Different price
+                        $update_order = array (
+                            'ID'            => $order_id,
+                            'post_status'   => 'addonp-check',
+                        );
+                        wp_update_post( $update_order );
 
-			            add_post_meta( $order_id, '_addonp_order_result', 				$result, 				true );
-			            add_post_meta( $order_id, '_addonp_order_authcode', 			$authcode, 				true );
-			            add_post_meta( $order_id, '_addonp_order_passref', 				$pasref, 				true );
-			            add_post_meta( $order_id, '_addonp_order_passref', 				$avspostcoderesponse,	true );
-			            add_post_meta( $order_id, '_addonp_order_avsaddressresponse',	$avsaddressresponse, 	true );
-			            add_post_meta( $order_id, '_addonp_order_cvnresult', 			$cvnresult, 			true );
-			            add_post_meta( $order_id, '_addonp_order_account', 				$account, 				true );
-			            add_post_meta( $order_id, '_addonp_order_batchid', 				$batchid, 				true );
+                        add_post_meta( $order_id, '_addonp_order_result',               $result,                true );
+                        add_post_meta( $order_id, '_addonp_order_authcode',             $authcode,              true );
+                        add_post_meta( $order_id, '_addonp_order_passref',              $pasref,                true );
+                        add_post_meta( $order_id, '_addonp_order_passref',              $avspostcoderesponse,   true );
+                        add_post_meta( $order_id, '_addonp_order_avsaddressresponse',   $avsaddressresponse,    true );
+                        add_post_meta( $order_id, '_addonp_order_cvnresult',            $cvnresult,             true );
+                        add_post_meta( $order_id, '_addonp_order_account',              $account,               true );
+                        add_post_meta( $order_id, '_addonp_order_batchid',              $batchid,               true );
 
-			            $process = 'Ok';
-		            }
+                        $process = 'Ok';
+                    }
 
-	            } else {
-		            //ko Transaction
-		            $update_order = array (
-				            'ID' 			=> $order_id,
-				            'post_status'	=> 'addonp-error',
-						);
-			            wp_update_post( $update_order );
+                } else {
+                    //ko Transaction
+                    $update_order = array (
+                            'ID'            => $order_id,
+                            'post_status'   => 'addonp-error',
+                        );
+                        wp_update_post( $update_order );
 
-			            add_post_meta( $order_id, '_addonp_order_result', 				$result, 				true );
-			            add_post_meta( $order_id, '_addonp_order_authcode', 			$authcode, 				true );
-			            add_post_meta( $order_id, '_addonp_order_passref', 				$pasref, 				true );
-			            add_post_meta( $order_id, '_addonp_order_passref', 				$avspostcoderesponse,	true );
-			            add_post_meta( $order_id, '_addonp_order_avsaddressresponse',	$avsaddressresponse, 	true );
-			            add_post_meta( $order_id, '_addonp_order_cvnresult', 			$cvnresult, 			true );
-			            add_post_meta( $order_id, '_addonp_order_account', 				$account, 				true );
-			            add_post_meta( $order_id, '_addonp_order_batchid', 				$batchid, 				true );
+                        add_post_meta( $order_id, '_addonp_order_result',               $result,                true );
+                        add_post_meta( $order_id, '_addonp_order_authcode',             $authcode,              true );
+                        add_post_meta( $order_id, '_addonp_order_passref',              $pasref,                true );
+                        add_post_meta( $order_id, '_addonp_order_passref',              $avspostcoderesponse,   true );
+                        add_post_meta( $order_id, '_addonp_order_avsaddressresponse',   $avsaddressresponse,    true );
+                        add_post_meta( $order_id, '_addonp_order_cvnresult',            $cvnresult,             true );
+                        add_post_meta( $order_id, '_addonp_order_account',              $account,               true );
+                        add_post_meta( $order_id, '_addonp_order_batchid',              $batchid,               true );
 
-			            $process = 'Ok';
+                        $process = 'Ok';
 
-	            }
+                }
 
             } else {
-	            // KO hash
-	            $update_order = array (
-				            'ID' 			=> $order_id,
-				            'post_status'	=> 'addonp-suspended',
-						);
-			            wp_update_post( $update_order );
+                // KO hash
+                $update_order = array (
+                            'ID'            => $order_id,
+                            'post_status'   => 'addonp-suspended',
+                        );
+                        wp_update_post( $update_order );
 
-			            add_post_meta( $order_id, '_addonp_order_result', 				$result, 				true );
-			            add_post_meta( $order_id, '_addonp_order_authcode', 			$authcode, 				true );
-			            add_post_meta( $order_id, '_addonp_order_passref', 				$pasref, 				true );
-			            add_post_meta( $order_id, '_addonp_order_passref', 				$avspostcoderesponse,	true );
-			            add_post_meta( $order_id, '_addonp_order_avsaddressresponse',	$avsaddressresponse, 	true );
-			            add_post_meta( $order_id, '_addonp_order_cvnresult', 			$cvnresult, 			true );
-			            add_post_meta( $order_id, '_addonp_order_account', 				$account, 				true );
-			            add_post_meta( $order_id, '_addonp_order_batchid', 				$batchid, 				true );
+                        add_post_meta( $order_id, '_addonp_order_result',               $result,                true );
+                        add_post_meta( $order_id, '_addonp_order_authcode',             $authcode,              true );
+                        add_post_meta( $order_id, '_addonp_order_passref',              $pasref,                true );
+                        add_post_meta( $order_id, '_addonp_order_passref',              $avspostcoderesponse,   true );
+                        add_post_meta( $order_id, '_addonp_order_avsaddressresponse',   $avsaddressresponse,    true );
+                        add_post_meta( $order_id, '_addonp_order_cvnresult',            $cvnresult,             true );
+                        add_post_meta( $order_id, '_addonp_order_account',              $account,               true );
+                        add_post_meta( $order_id, '_addonp_order_batchid',              $batchid,               true );
 
-			            $process = 'KO';
+                        $process = 'KO';
             }
         } else {
-	        $process = '';
+            $process = '';
         }
 
         // Shipping fields
@@ -1164,7 +1164,7 @@
         } elseif ( ! empty( $process ) ) {
             return $process;
         } else {
-	        return $form;
+            return $form;
         }
 
     }
