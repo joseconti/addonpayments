@@ -13,8 +13,9 @@ function addonp_register_settings_submenu_page_callback(){ ?>
         }
         ?>
         <h2 class="nav-tab-wrapper">
-            <a href="options-general.php?page=addonpayments-settings&tab=basic_settings" class="nav-tab <?php echo $active_tab == 'basic_settings' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Basic Settings', 'addonpayments' ); ?></a>
-            <a href="options-general.php?page=addonpayments-settings&&tab=advanced_settings" class="nav-tab <?php echo $active_tab == 'advanced_settings' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Advanced Settings', 'addonpayments' ); ?></a>
+            <a href="admin.php?page=addonpayments-settings&tab=basic_settings" class="nav-tab <?php echo $active_tab == 'basic_settings' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Basic Settings', 'addonpayments' ); ?></a>
+            <a href="admin.php?page=addonpayments-settings&&tab=advanced_settings" class="nav-tab <?php echo $active_tab == 'advanced_settings' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Advanced Settings', 'addonpayments' ); ?></a>
+            <a href="admin.php?page=addonpayments-settings&&tab=frontend_settings" class="nav-tab <?php echo $active_tab == 'frontend_settings' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Front-End Settings', 'addonpayments' ); ?></a>
         </h2>
         <form method="post" action="options.php">
 	         <?php if( $active_tab == 'basic_settings' ) { ?>
@@ -22,11 +23,16 @@ function addonp_register_settings_submenu_page_callback(){ ?>
                 _e('AddonPayments Settings', 'addonpayments' ); ?></p><?php
                 settings_fields( "addonp-basic-settings-section");
                 do_settings_sections( "addonp-basic-settings-options" );
-            } else { ?>
+            } elseif ( $active_tab == 'advanced_settings' ) { ?>
                 <p><?php
                 _e( 'AddonPayments Advanced Settings', 'addonpayments' ); ?></p><?php
                 settings_fields( "addonp-advanced-settings-section");
                 do_settings_sections( "addonp-advanced-settings-options" );
+                } else { ?>
+	                <p><?php
+                _e( 'AddonPayments Front-End Settings', 'addonpayments' ); ?></p><?php
+                settings_fields( "addonp-frontend-settings-section");
+                do_settings_sections( "addonp-frontend-settings-options" );
                 }
             submit_button();
             ?>
@@ -62,8 +68,14 @@ function addonp_register_settings_submenu_page_callback(){ ?>
               if ( addonp_test_mode ) {
                 var switchery = new Switchery( addonp_test_mode, { size: 'small' } );
                 }
-
-
+              var addonp_show_tax = document.querySelector( '.js-switch-addonp_show_price_with_tax' );
+              if ( addonp_show_tax ) {
+                var switchery = new Switchery( addonp_show_tax, { size: 'small' } );
+                }
+              var addonp_show_comment1 = document.querySelector( '.js-switch-addonp_coment1_fields_to_screen_front' );
+              if ( addonp_show_comment1 ) {
+                var switchery = new Switchery( addonp_show_comment1, { size: 'small' } );
+                }
 
         </script>
     </div>
@@ -83,4 +95,5 @@ add_action( 'admin_enqueue_scripts', 'addonp_settings_load_css' );
 //Include all options
 
 include_once( 'setting-options/basic-settings.php'     );
-include_once( 'setting-options/advanced-settings.php' );
+include_once( 'setting-options/advanced-settings.php'  );
+include_once( 'setting-options/frontend-settings.php'  );

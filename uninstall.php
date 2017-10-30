@@ -20,7 +20,12 @@ $options = array(
     'addonp_shared_secret_field',
     'addonp_currency_field',
     'addonp_auto_set_flag_field',
-    'addonp_account_field'
+    'addonp_account_field',
+    'addonp_place_currency_sign_field',
+    'addonp_currency_sign_field',
+    'addonp_fields_to_screen_front_label_field',
+    'addonp_show_price_with_tax_field',
+    'addonp_coment1_fields_to_screen_front_label_field'
     );
 
 foreach ( $options as $option ){

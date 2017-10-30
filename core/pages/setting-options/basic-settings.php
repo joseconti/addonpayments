@@ -178,7 +178,7 @@
         );
     $option = get_option( 'addonp_currency_field' );
     ?>
-       <select id="addonp_currency_field" name="addonp_currency_field">
+       <select id="addonp_currency_field" name="addonp_currency_field" class="js-currency-list">
            <?php
            foreach ( $currency_codes as $currency => $code ) { ?>
                 <option value="<?php echo $code; ?>" <?php if ( $option == $code ) echo ' selected'; ?>><?php echo $currency; ?></option>
