@@ -72,8 +72,33 @@
     <input title="<?php _e('Text after price with Tax', 'addonpayments' ); ?>" type="text" name="addonp_post_price_included_tax_field" value="<?php echo get_option('addonp_post_price_included_tax_field'); ?>"  size="40" />
     <?php }
 
-	 function addonp_post_price_excluded_tax_field(){ ?>
+	function addonp_post_price_excluded_tax_field(){ ?>
     <input title="<?php _e('Text after price without Tax', 'addonpayments' ); ?>" type="text" name="addonp_post_price_excluded_tax_field" value="<?php echo get_option('addonp_post_price_excluded_tax_field'); ?>"  size="40" />
+    <?php }
+
+	function addonp_show_text_retention_field(){ ?>
+
+      <input type="checkbox" class="js-switch-addonp_show_text_retention" title="<?php _e('Show text retention', 'addonpayments' ); ?>" name="addonp_show_text_retention_field" value="1" <?php checked(1, get_option('addonp_show_text_retention_field'), true); ?>/>
+    <?php }
+
+	function addonp_text_active_retention_field(){ ?>
+    <input title="<?php _e('Text active retention (Empty for default)', 'addonpayments' ); ?>" type="text" name="addonp_text_active_retention_field" value="<?php echo get_option('addonp_text_active_retention_field'); ?>"  size="40" />
+    <?php }
+
+	function addonp_text_buy_now_field(){ ?>
+    <input title="<?php _e('Text Buy Now Button (Empty for default)', 'addonpayments' ); ?>" type="text" name="addonp_text_buy_now_field" value="<?php echo get_option('addonp_text_buy_now_field'); ?>"  size="40" />
+    <?php }
+
+	function addonp_text_pay_now(){ ?>
+    <input title="<?php _e('Text Pay Now Button (Empty for default)', 'addonpayments' ); ?>" type="text" name="addonp_text_pay_now" value="<?php echo get_option('addonp_text_pay_now'); ?>"  size="40" />
+    <?php }
+
+	function addonp_text_continue_to_pay_button_field(){ ?>
+    <input title="<?php _e('Text Continue to Pay Button (Empty for default)', 'addonpayments' ); ?>" type="text" name="addonp_text_continue_to_pay_button_field" value="<?php echo get_option('addonp_text_continue_to_pay_button_field'); ?>"  size="40" />
+    <?php }
+
+	function addonp_text_pay_addonpayments(){ ?>
+    <input title="<?php _e('Text Pay Now Button at AddonPayments (Empty for default)', 'addonpayments' ); ?>" type="text" name="addonp_text_pay_addonpayments" value="<?php echo get_option('addonp_text_pay_addonpayments'); ?>"  size="40" />
     <?php }
 
 
@@ -108,6 +133,12 @@
 		add_settings_field( 'addonp_show_price_with_tax_field', __('Show price with Tax', 'addonpayments'), 'addonp_show_price_with_tax_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
 		add_settings_field( 'addonp_post_price_included_tax_field', __('Text after price with Tax', 'addonpayments'), 'addonp_post_price_included_tax_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
 		add_settings_field( 'addonp_post_price_excluded_tax_field', __('Text after price without Tax', 'addonpayments'), 'addonp_post_price_excluded_tax_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
+		add_settings_field( 'addonp_show_text_retention_field', __('Show text retention', 'addonpayments'), 'addonp_show_text_retention_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
+		add_settings_field( 'addonp_text_active_retention_field', __('Text active retention (Empty for default)', 'addonpayments'), 'addonp_text_active_retention_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
+		add_settings_field( 'addonp_text_buy_now_field', __('Text Buy Now Button (Empty for default)', 'addonpayments'), 'addonp_text_buy_now_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
+		add_settings_field( 'addonp_text_pay_now', __('Text Pay Now Button (Empty for default)', 'addonpayments'), 'addonp_text_pay_now', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
+		add_settings_field( 'addonp_text_continue_to_pay_button_field', __('Text Continue to Pay Button (Empty for default)', 'addonpayments'), 'addonp_text_continue_to_pay_button_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
+		add_settings_field( 'addonp_text_pay_addonpayments', __('Text Pay Now Button at AddonPayments (Empty for default)', 'addonpayments'), 'addonp_text_pay_addonpayments', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
 
 
 
@@ -125,6 +156,12 @@
 		register_setting('addonp-frontend-settings-section', 'addonp_show_price_with_tax_field' );
 		register_setting('addonp-frontend-settings-section', 'addonp_post_price_included_tax_field' );
 		register_setting('addonp-frontend-settings-section', 'addonp_post_price_excluded_tax_field' );
+		register_setting('addonp-frontend-settings-section', 'addonp_show_text_retention_field' );
+		register_setting('addonp-frontend-settings-section', 'addonp_text_active_retention_field' );
+		register_setting('addonp-frontend-settings-section', 'addonp_text_buy_now_field' );
+		register_setting('addonp-frontend-settings-section', 'addonp_text_pay_now' );
+		register_setting('addonp-frontend-settings-section', 'addonp_text_continue_to_pay_button_field' );
+		register_setting('addonp-frontend-settings-section', 'addonp_text_pay_addonpayments' );
 
 
 		}

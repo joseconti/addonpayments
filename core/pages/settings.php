@@ -76,7 +76,10 @@ function addonp_register_settings_submenu_page_callback(){ ?>
               if ( addonp_show_comment1 ) {
                 var switchery = new Switchery( addonp_show_comment1, { size: 'small' } );
                 }
-
+              var addonp_show_retention_text = document.querySelector( '.js-switch-addonp_show_text_retention' );
+              if ( addonp_show_retention_text ) {
+                var switchery = new Switchery( addonp_show_retention_text, { size: 'small' } );
+                }
         </script>
     </div>
 <?php }

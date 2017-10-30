@@ -23,3 +23,8 @@ jQuery(document).ready(function($) {
 	    placeholder: 'Select Billing fields to show on Front-End'
     });
 });
+jQuery(document).ready(function($) {
+    $('.js-billing-fields-fron-retention').select2({
+	    placeholder: 'Select Billing fields to show on Front-End'
+    });
+});

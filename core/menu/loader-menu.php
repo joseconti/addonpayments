@@ -27,8 +27,8 @@
 						    );
 			$addon_orders   = add_submenu_page(
 								$menu_slug,
-								__( 'Orders', 'seur' ),
-								__( 'Orders',   'seur' ),
+								__( 'Orders', 'addonpayments' ),
+								__( 'Orders',   'addonpayments' ),
 								$capability,
 								'edit.php?post_type=addonp_orders'
 							);
@@ -38,3 +38,21 @@
 	}
 
 	add_action('admin_menu', 'addon_menu');
+
+	function addon_menu_hierarchy_correction( $parent_file ) {
+
+    global $current_screen, $parent_file, $self;
+
+    $current = $current_screen->post_type;
+
+
+    if ( 'addonp_orders' == $current_screen->post_type  ) {
+        // Do something in the edit screen of this post type
+        $parent_file = 'addonpayments-settings';
+    }
+
+    // return $parent_file;
+    return $parent_file;
+
+}
+add_filter( 'parent_file', 'addon_menu_hierarchy_correction' );

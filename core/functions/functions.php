@@ -77,6 +77,13 @@
         $percent_tax         = get_option( 'addonp_percent_tax_field'               );
         $text_excluded_tax   = get_option( 'addonp_post_price_excluded_tax_field'   );
         $text_included_tax   = get_option( 'addonp_post_price_included_tax_field'   );
+        $retention  		 = get_option( 'addonp_apply_retention_field'           );
+        $show_text_retention = get_option('addonp_show_text_retention_field'        );
+        $text_retention      = get_option('addonp_text_active_retention_field'      );
+        $text_buy_now		 = get_option('addonp_text_buy_now_field'				);
+        $text_pay_now 		 = get_option('addonp_text_pay_now'						);
+
+
         $nonce_field         = wp_nonce_field( 'addonpayments_action', 'addonpayments_nonce_field' );
         $shipping_fields     = maybe_unserialize( get_option( 'addonp_shipping_fields_to_screen_front_label_field' ) );
         $billing_fields      = maybe_unserialize( get_option( 'addonp_billing_fields_to_screen_front_label_field' ) );
@@ -138,8 +145,12 @@
 
         // Retention
 
-        if ( $retention == '1' ) {
+        if ( $retention == '1' && $show_text_retention == '1' ) {
+            if ( empty( $text_retention ) ) {
             $reten_field = "<span id='sub-text-price'>" . __('(A Retention will be applied if is needed)', 'addonpayments' ) . "</span><br />";
+            } else {
+	            $reten_field = "<span id='sub-text-price'>" . $text_retention . "</span><br />";
+            }
         } else {
             $reten_field = '';
         }
@@ -230,6 +241,21 @@
             $apply_retention_to_private       = get_option('addonp_apply_retention_to_private_field');
             $apply_retention_to_business      = get_option('addonp_apply_retention_to_business_field');
             $apply_retention_to_self_employed = get_option('addonp_apply_retention_to_self_employed_field');
+            $text_pay_now_addonP 			  = get_option('addonp_text_pay_addonpayments'			);
+            $text_continue_to_pay			  = get_option('addonp_text_continue_to_pay_button_field');
+
+
+            if ( ! empty( $text_pay_now_addonP ) ) {
+	            $text_pay_now_addonP_buttom = $text_pay_now_addonP;
+            } else {
+	            $text_pay_now_addonP_buttom = __( 'Pay Now', 'adonpayments' );
+            }
+
+            if ( ! empty( $text_continue_to_pay ) ) {
+	            $text_continue_to_pay_buttom = $text_continue_to_pay;
+            } else {
+	            $text_continue_to_pay_buttom = __( 'Continue to AddonPayments to Pay', 'adonpayments' );
+            }
 
             if ( $billing_country ) {
                 $country = $billing_country;
@@ -336,9 +362,8 @@
                     <input type="hidden" name="HPP_LANG" value="GB">
                     <input type="hidden" name="HPP_VERSION" value="2">
                     <input type="hidden" name="MERCHANT_RESPONSE_URL" value="' . $post_permanlink . '">
-                    <input type="hidden" name="CARD_PAYMENT_BUTTON" value="Pagar ahora">
-                    <input type="hidden" name="SUPPLEMENTARY_DATA" value="Valor personalizado">
-                    <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Haz clic aquí para comprar</button>
+                    <input type="hidden" name="CARD_PAYMENT_BUTTON" value="' . $text_pay_now_addonP_buttom . '">
+                    <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">' . $text_continue_to_pay_buttom . '</button>
                 </fieldset>
                     </form>
                     <script type="text/javascript">
@@ -1093,10 +1118,22 @@
             $billing_fields = '';
         }
 
+        if ( ! empty( $text_buy_now ) ) {
+            $text_buy_now_button = $text_buy_now;
+        } else {
+            $text_buy_now_button = __( 'Buy Now', 'addonpayments' );
+        }
+
+        if ( ! empty( $text_pay_now ) ) {
+            $text_pay_now_button = $text_pay_now;
+        } else {
+            $text_pay_now_button = __( 'Pay Now with AddonPayments', 'addonpayments' );
+        }
+
         if ( $show_comments == '1' ) {
             $COMMENT1 = '<div class="column-1">
                             <span id="colum_title_comment">' . __( 'Comment for your Order', 'addonpayments' ) . '</span>
-                            <textarea class="pure-input-1-2" name="COMMENT1" placeholder="Add a comment for your order"></textarea>
+                            <textarea class="pure-input-1-2" name="COMMENT1" placeholder="' . __('Add a comment for your order', 'addonpayments') . '"></textarea>
                         </div>';
         } else {
             $COMMENT1 = '';
@@ -1106,7 +1143,7 @@
                     <span id="addon_price">' . __( 'Price: ', 'addonpayments' ) . $currency_front . $price_front . $currency_back . '</span>' . ' ' . '<span id="price-postfix">' . $post_price . '</span><br />'
                     . $reten_field .
                     '<div id="addond_accordion">
-                        <h3>' . __( 'Buy Now', 'addonpayments' ) . '</h3>
+                        <h3>' . $text_buy_now_button . '</h3>
                         <form method="POST" action="' . $post_permanlink . '" class="pure-form">' .
                         $shipping_content .
                         $billing_content .
@@ -1116,7 +1153,7 @@
                             <input type="hidden" name="post_permanlink" value="' . $post_permanlink . '">
                             <input type="hidden" name="PROD_ID" value="' . $atts['product'] . '">' .
                             $nonce_field .
-                            '<button type="submit" class="pure-button pure-input-1-2 pure-button-primary">' . __( 'Pay Now with AddonPayments', 'addonpayments' ) . '</button>
+                            '<button type="submit" class="pure-button pure-input-1-2 pure-button-primary">' . $text_pay_now_button . '</button>
 
                     </form>
                     </div>
