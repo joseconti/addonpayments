@@ -69,11 +69,11 @@
     <?php }
 
 	function addonp_post_price_included_tax_field(){ ?>
-    <input title="<?php _e('Text after price with Tax', 'addonpayments' ); ?>" type="text" name="addonp_post_price_included_tax_field" value="<?php echo get_option('addonp_post_price_included_tax_field'); ?>"  size="40" />
+    <input title="<?php _e('Text after price with Tax (Empty for default)', 'addonpayments' ); ?>" type="text" name="addonp_post_price_included_tax_field" value="<?php echo get_option('addonp_post_price_included_tax_field'); ?>"  size="40" />
     <?php }
 
 	function addonp_post_price_excluded_tax_field(){ ?>
-    <input title="<?php _e('Text after price without Tax', 'addonpayments' ); ?>" type="text" name="addonp_post_price_excluded_tax_field" value="<?php echo get_option('addonp_post_price_excluded_tax_field'); ?>"  size="40" />
+    <input title="<?php _e('Text after price without Tax (Empty for default)', 'addonpayments' ); ?>" type="text" name="addonp_post_price_excluded_tax_field" value="<?php echo get_option('addonp_post_price_excluded_tax_field'); ?>"  size="40" />
     <?php }
 
 	function addonp_show_text_retention_field(){ ?>
@@ -101,6 +101,19 @@
     <input title="<?php _e('Text Pay Now Button at AddonPayments (Empty for default)', 'addonpayments' ); ?>" type="text" name="addonp_text_pay_addonpayments" value="<?php echo get_option('addonp_text_pay_addonpayments'); ?>"  size="40" />
     <?php }
 
+	function addonp_addonpayments_language_field(){
+        $language_codes = array(
+            'English' => 'GB'
+        );
+    $option = get_option( 'addonp_addonpayments_language_field' );
+    ?>
+       <select id="addonp_addonpayments_language_field" name="addonp_addonpayments_language_field" class="js-addonpayments-language-list">
+           <?php
+           foreach ( $language_codes as $language => $code ) { ?>
+                <option value="<?php echo $code; ?>" <?php if ( $option == $code ) echo ' selected'; ?>><?php echo $language; ?></option>
+            <?php } ?>
+        </select>
+    <?php   }
 
 
 
@@ -131,14 +144,15 @@
 		add_settings_field( 'addonp_billing_fields_to_screen_front_label_field', __('Select Billing Fields to show', 'addonpayments'), 'addonp_billing_fields_to_screen_front_label_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
 		add_settings_field( 'addonp_coment1_fields_to_screen_front_label_field', __('Show Comment for users Order', 'addonpayments'), 'addonp_coment1_fields_to_screen_front_label_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
 		add_settings_field( 'addonp_show_price_with_tax_field', __('Show price with Tax', 'addonpayments'), 'addonp_show_price_with_tax_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
-		add_settings_field( 'addonp_post_price_included_tax_field', __('Text after price with Tax', 'addonpayments'), 'addonp_post_price_included_tax_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
-		add_settings_field( 'addonp_post_price_excluded_tax_field', __('Text after price without Tax', 'addonpayments'), 'addonp_post_price_excluded_tax_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
+		add_settings_field( 'addonp_post_price_included_tax_field', __('Text after price with Tax (Empty for default)', 'addonpayments'), 'addonp_post_price_included_tax_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
+		add_settings_field( 'addonp_post_price_excluded_tax_field', __('Text after price without Tax (Empty for default)', 'addonpayments'), 'addonp_post_price_excluded_tax_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
 		add_settings_field( 'addonp_show_text_retention_field', __('Show text retention', 'addonpayments'), 'addonp_show_text_retention_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
 		add_settings_field( 'addonp_text_active_retention_field', __('Text active retention (Empty for default)', 'addonpayments'), 'addonp_text_active_retention_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
 		add_settings_field( 'addonp_text_buy_now_field', __('Text Buy Now Button (Empty for default)', 'addonpayments'), 'addonp_text_buy_now_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
 		add_settings_field( 'addonp_text_pay_now', __('Text Pay Now Button (Empty for default)', 'addonpayments'), 'addonp_text_pay_now', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
 		add_settings_field( 'addonp_text_continue_to_pay_button_field', __('Text Continue to Pay Button (Empty for default)', 'addonpayments'), 'addonp_text_continue_to_pay_button_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
 		add_settings_field( 'addonp_text_pay_addonpayments', __('Text Pay Now Button at AddonPayments (Empty for default)', 'addonpayments'), 'addonp_text_pay_addonpayments', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
+		add_settings_field( 'addonp_addonpayments_language_field', __('AddonPayment Language', 'addonpayments'), 'addonp_addonpayments_language_field', 'addonp-frontend-settings-options', 'addonp-frontend-settings-section' );
 
 
 
@@ -162,6 +176,7 @@
 		register_setting('addonp-frontend-settings-section', 'addonp_text_pay_now' );
 		register_setting('addonp-frontend-settings-section', 'addonp_text_continue_to_pay_button_field' );
 		register_setting('addonp-frontend-settings-section', 'addonp_text_pay_addonpayments' );
+		register_setting('addonp-frontend-settings-section', 'addonp_addonpayments_language_field' );
 
 
 		}

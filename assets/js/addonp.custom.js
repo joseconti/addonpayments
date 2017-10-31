@@ -24,7 +24,7 @@ jQuery(document).ready(function($) {
     });
 });
 jQuery(document).ready(function($) {
-    $('.js-billing-fields-fron-retention').select2({
-	    placeholder: 'Select Billing fields to show on Front-End'
+    $('.js-addonpayments-language-list').select2({
+	    placeholder: 'Select AddonPayment Language'
     });
 });

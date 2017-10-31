@@ -243,6 +243,7 @@
             $apply_retention_to_self_employed = get_option('addonp_apply_retention_to_self_employed_field');
             $text_pay_now_addonP              = get_option('addonp_text_pay_addonpayments'          );
             $text_continue_to_pay             = get_option('addonp_text_continue_to_pay_button_field');
+            $addonpayment_language            = get_option( 'addonp_addonpayments_language_field' );
 
 
             if ( ! empty( $text_pay_now_addonP ) ) {
@@ -359,7 +360,7 @@
                     <input type="hidden" name="BILLING_CO" value="' . $billing_country . '">
                     <input type="hidden" name="CUST_NUM" value="' . $shipping_email . '">
                     <input type="hidden" name="PROD_ID" value="' . $atts['product'] . '">
-                    <input type="hidden" name="HPP_LANG" value="GB">
+                    <input type="hidden" name="HPP_LANG" value="' . $addonpayment_language . '">
                     <input type="hidden" name="HPP_VERSION" value="2">
                     <input type="hidden" name="MERCHANT_RESPONSE_URL" value="' . $post_permanlink . '">
                     <input type="hidden" name="CARD_PAYMENT_BUTTON" value="' . $text_pay_now_addonP_buttom . '">
