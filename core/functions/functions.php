@@ -344,7 +344,7 @@
                 $url = 'https://hpp.addonpayments.com/pay';
             }
 
-            $post = '<form method="POST" action="' . $url . '" id="addonpayments">
+            $post = '<form method="POST" action="' . $url . '" name= "addonpayments" id="addonpayments">
                     <input type="hidden" name="TIMESTAMP" value="' . $timestamp . '">
                     <input type="hidden" name="MERCHANT_ID" value="' . $merchand_id . '">
                     <input type="hidden" name="ACCOUNT" value="' . $account . '">
@@ -353,7 +353,7 @@
                     <input type="hidden" name="CURRENCY" value="' . $currency . '">
                     <input type="hidden" name="SHA1HASH" value="' . $string_sha1_2 . '">
                     <input type="hidden" name="AUTO_SETTLE_FLAG" value="' . $auto_set_flag . '">
-                    <input type="hidden" name="COMMENT2" value="">
+                    <input type="hidden" name="COMMENT2" value="' . $atts['product'] . '">
                     <input type="hidden" name="SHIPPING_CODE" value="' . $shipping_postcode . '">
                     <input type="hidden" name="SHIPPING_CO" value="' . $shipping_country . '">
                     <input type="hidden" name="BILLING_CODE" value="' . $shipping_postcode . '">
@@ -367,19 +367,10 @@
                     <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">' . $text_continue_to_pay_buttom . '</button>
                 </fieldset>
                     </form>
-                    <script type="text/javascript">
-                    window.onload=function(){
-                        var auto = setTimeout(function(){ autoRefresh(); }, 0);
-
-                        function submitform(){
-                          document.forms["addonpayments"].submit();
-                        }
-
-                        function autoRefresh(){
-                           clearTimeout(auto);
-                           auto = setTimeout(function(){ submitform(); autoRefresh(); }, 0);
-                        }
-                    }
+                <script type="text/javascript">
+                    jQuery(document).ready(function($){
+                         $("#addonpayments").submit();
+                    });
                 </script>';
             } else {
                 $post = '';
@@ -468,7 +459,7 @@
                         add_post_meta( $order_id, '_addonp_order_account',              $account,               true );
                         add_post_meta( $order_id, '_addonp_order_batchid',              $batchid,               true );
 
-                        $process = 'Ok';
+                        $process = 'Ko Transaction';
 
                 }
 
