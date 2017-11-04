@@ -64,6 +64,32 @@
     add_action( 'admin_notices', 'addonp_admin_notice_retention_error' );
     add_action( 'admin_notices', 'addonp_admin_notice_tax_error' );
 
+    // Errors
+
+    function addonp_get_error( $result ) {
+
+	    if ( ( $result >= 100 ) &&  ( $result <= 199 ) ) {
+		     if ( $result == '101' ) {
+			     $text_result = __( 'Declined by Bank – generally insufficient funds or incorrect card details (e.g. expiry date, card security code)', 'addonpayments' );
+			 } elseif ( $result == '102' ) {
+				 $text_result = __( 'Referral to Bank (usually treated as a standard decline for ecommerce systems)', 'addonpayments' );
+			 } elseif ( $result == '103' ) {
+				 $text_result = __( 'Card reported lost or stolen.', 'addonpayments' );
+			 } elseif ( $result == '107' ) {
+				 $text_result = __( 'The transaction has been blocked as potentially fraudulent by our fraud management configuration', 'addonpayments' );
+			 } else {
+				 $text_result = __( 'Declined by Bank', 'addonpayments' );
+			 }
+	    } elseif ( ( $result >= 200 ) &&  ( $result <= 299 ) ) {
+		    $text_result = __( 'Error with bank systems – Please, try again later.', 'addonpayments' );
+	    } elseif ( ( $result >= 300 ) &&  ( $result <= 399 ) ) {
+		    $text_result = __( 'Error with AddonPayments systems – Please, try again later.', 'addonpayments' );
+		} elseif ( $result == 666 ) {
+			$text_result = __( 'Account deactivated – The AddonPayments account has been suspended. Please contact AddPayments.', 'addonpayments' );
+		}
+	    return $text_result;
+    }
+
     // Add Shortcode
     function addonp_price_shortcode( $atts ) {
         global $post;
@@ -376,7 +402,7 @@
                 $post = '';
             }
 
-        if ( isset( $_POST['RESULT'] ) ) {
+        if ( isset( $_POST['RESULT'] ) && ( isset( $_POST['COMMENT2'] ) &&  $_POST['COMMENT2'] == $atts['product'] ) ) {
 
             if ( isset( $_POST['RESULT'] ) )                $result                 = sanitize_text_field( $_POST['RESULT']                 );
             if ( isset( $_POST['AUTHCODE'] ) )              $authcode               = sanitize_text_field( $_POST['AUTHCODE']               );
@@ -391,10 +417,18 @@
             if ( isset( $_POST['AMOUNT'] ) )                $amount                 = sanitize_text_field( $_POST['AMOUNT']                 );
             if ( isset( $_POST['BATCHID'] ) )               $batchid                = sanitize_text_field( $_POST['BATCHID']                );
             if ( isset( $_POST['SHA1HASH'] ) )              $sha1hash               = sanitize_text_field( $_POST['SHA1HASH']               );
+            if ( isset( $_POST['MERCHANT_RESPONSE_URL'] ) ) $merchand_response_url  = sanitize_text_field( $_POST['MERCHANT_RESPONSE_URL']  );
 
             $merchand_id = get_option( 'addonp_merchant_id_field'   );
             $secret      = get_option( 'addonp_shared_secret_field' );
             $final_price = get_post_meta( $order_id, '_addonp_final_price_addon', true );
+
+            $strkey      = 'abcdefghijklmnopqrstuvwxyzABCEDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+            $randomkey   = str_shuffle( $str );
+            $timekey     = date("YmdHis");
+            $post_permanlink_return = $merchand_response_url;
+
+            $key_product = $randomkey . $timekey;
 
             $string_sha1_1 = sha1( $timestamp . '.' . $merchand_id . '.' . $order_id . '.' . $result . '.' . $message . '.' . $pasref . '.' . $authcode );
             $string_sha1_2 = sha1( $string_sha1_1 . '.' . $secret );
@@ -409,6 +443,7 @@
                             'ID'            => $order_id,
                             'post_status'   => 'addonp-paid',
                         );
+
                         wp_update_post( $update_order );
 
                         add_post_meta( $order_id, '_addonp_order_result',               $result,                true );
@@ -419,8 +454,14 @@
                         add_post_meta( $order_id, '_addonp_order_cvnresult',            $cvnresult,             true );
                         add_post_meta( $order_id, '_addonp_order_account',              $account,               true );
                         add_post_meta( $order_id, '_addonp_order_batchid',              $batchid,               true );
+                        add_post_meta( $order_id, '_addonp_order_key_product',          $key_product,		    true );
 
-                        $process = 'Ok';
+                        $process = '<div class="addonp-thanks">' .
+                        					__( 'Thank you for your purchase', 'addonpayments' ) . '<br />' .
+											__( 'Your Order number is', 'addonpayments' ) . ' ' . $order_id . '<br />' .
+											'<a href="' . $post_permanlink_return . '" class="addonp-button" target="_top">' . __( 'Return to the website', 'addonpayments' ) . '</a>
+
+									</div>';
 
                     } else {
                         // Different price
@@ -438,8 +479,15 @@
                         add_post_meta( $order_id, '_addonp_order_cvnresult',            $cvnresult,             true );
                         add_post_meta( $order_id, '_addonp_order_account',              $account,               true );
                         add_post_meta( $order_id, '_addonp_order_batchid',              $batchid,               true );
+                        add_post_meta( $order_id, '_addonp_order_key_product',          $key_product,		    true );
 
-                        $process = 'Ok';
+                        $process = '<div class="addonp-check">' .
+                        					__( 'We need to check your purchase', 'addonpayments' ) . '<br />' .
+											__( 'We will contact with you once we check the transaction', 'addonpayments' ) . '<br />' .
+											__( 'We appreciate your patience', 'addonpayments' ) . '<br />' .
+											'<a href="' . $post_permanlink_return . '" class="addonp-button" target="_top">' . __( 'Return to the website', 'addonpayments' ) . '</a>
+
+									</div>';
                     }
 
                 } else {
@@ -448,6 +496,9 @@
                             'ID'            => $order_id,
                             'post_status'   => 'addonp-error',
                         );
+
+                        $error_text = addonp_get_error( $result );
+
                         wp_update_post( $update_order );
 
                         add_post_meta( $order_id, '_addonp_order_result',               $result,                true );
@@ -458,8 +509,15 @@
                         add_post_meta( $order_id, '_addonp_order_cvnresult',            $cvnresult,             true );
                         add_post_meta( $order_id, '_addonp_order_account',              $account,               true );
                         add_post_meta( $order_id, '_addonp_order_batchid',              $batchid,               true );
+                        add_post_meta( $order_id, '_addonp_order_key_product',          $key_product,		    true );
 
-                        $process = 'Ko Transaction';
+                        $process = '<div class="addonp-error">' .
+                        					__( 'There was an error', 'addonpayments' ) . '<br />' .
+											__( 'The error was', 'addonpayments' ) . ' ' . $result . '<br />' .
+											$error_text . '<br />' .
+											'<a href="' . $post_permanlink_return . '" class="addonp-button" target="_top">' . __( 'Return to the website', 'addonpayments' ) . '</a>
+
+									</div>';
 
                 }
 
@@ -479,8 +537,15 @@
                         add_post_meta( $order_id, '_addonp_order_cvnresult',            $cvnresult,             true );
                         add_post_meta( $order_id, '_addonp_order_account',              $account,               true );
                         add_post_meta( $order_id, '_addonp_order_batchid',              $batchid,               true );
+                        add_post_meta( $order_id, '_addonp_order_key_product',          $key_product,		    true );
 
-                        $process = 'KO';
+                        $process = '<div class="addonp-error">' .
+                        					__( 'Wrong hash, the order has been suspended', 'addonpayments' ) . '<br />' .
+                        					__( 'Please contact with us if you think that this is and error', 'addonpayments' ) . '<br />' .
+                        					__( 'The order number is', 'addonpayments' ) . '  ' . $order_id . '<br />' .
+											'<a href="' . $post_permanlink_return . '" class="addonp-button" target="_top">' . __( 'Return to the website', 'addonpayments' ) . '</a>
+
+									</div>';
             }
         } else {
             $process = '';
