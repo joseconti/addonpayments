@@ -6,8 +6,8 @@ jQuery(document).ready(function($) {
 });
 jQuery(document).ready( function($) {
     $( "#addond_accordion" ).accordion({
-  collapsible: true,
-  animate: 400,
-  active: false
-});
-  } );
+	  collapsible: true,
+	  animate: 400,
+	  active: false
+	});
+  });
