@@ -86,6 +86,75 @@ form#ui-id-2.pure-form.ui-accordion-content.ui-helper-reset.ui-widget-content.ui
     color: #ffffff;
     font-weight: 600;
 }
+.addonp-thanks {
+    width: auto;
+	border: 1px solid #26A65B;
+	padding: 25px;
+	margin: 25px;
+	background-color: #16A085;
+	color: #ffffff;
+	text-align: center;
+	font-size: 2.4em;
+	font-weight: 600;
+}
+.addonp-check {
+	width: auto;
+	border: 1px solid #E87E04;
+	padding: 25px;
+	margin: 25px;
+	background-color: #FABE58;
+	color: #ffffff;
+	text-align: center;
+	font-size: 2.4em;
+	font-weight: 600;
+}
+.addonp-error {
+    width: auto;
+	border: 1px solid #96281B;
+	padding: 25px;
+	margin: 25px;
+	background-color: #EC644B;
+	color: #ffffff;
+	text-align: center;
+	font-size: 2.4em;
+	font-weight: 600;
+}
+.addonp-error a.addonp-button {
+  	color: white;
+	background: #4183D7;
+	padding: 10px 20px;
+	display: block;
+	margin: 10px 0;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 13px;
+	border: none:;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	-webkit-transition: none;
+	transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
+	transition: color 80ms ease-in, box-shadow 130ms ease-in-out;
+	transition: color 80ms ease-in, box-shadow 130ms ease-in-out, -webkit-box-shadow 130ms ease-in-out;
+}
+.addonp-error a.addonp-button:hover {
+	color: white;
+	background: #59ABE3;
+	padding: 10px 20px;
+	display: block;
+	margin: 10px 0;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-size: 13px;
+	border: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	-webkit-transition: none;
+	transition: color 80ms ease-in, -webkit-box-shadow 130ms ease-in-out;
+	transition: color 80ms ease-in, box-shadow 130ms ease-in-out;
+	transition: color 80ms ease-in, box-shadow 130ms ease-in-out, -webkit-box-shadow 130ms ease-in-out;
+}
 @media only screen and (max-width: 768px) {
     #addonpayments .column, #addonpayments .column-full {
         float: left;
