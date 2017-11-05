@@ -5,9 +5,9 @@ jQuery(document).ready(function($) {
     $('.js-user-type-list').select2();
 });
 jQuery(document).ready( function($) {
-    $( "#addond_accordion" ).accordion({
+    $( "[id^=addond_accordion]" ).accordion({
 	  collapsible: true,
 	  animate: 400,
 	  active: false
 	});
-  });
+});
