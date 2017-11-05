@@ -394,7 +394,7 @@
                     <input type="hidden" name="PROD_ID" value="' . $atts['product'] . '">
                     <input type="hidden" name="HPP_LANG" value="' . $addonpayment_language . '">
                     <input type="hidden" name="HPP_VERSION" value="2">
-                    <input type="hidden" name="MERCHANT_RESPONSE_URL" value="' . $post_permanlink . '#' . $PROD_ID . '">
+                    <input type="hidden" name="MERCHANT_RESPONSE_URL" value="' . $post_permanlink . '/#' . $PROD_ID . '">
                     <input type="hidden" name="CARD_PAYMENT_BUTTON" value="' . $text_pay_now_addonP_buttom . '">
                     <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">' . $text_continue_to_pay_buttom . '</button>
                 </fieldset>
