@@ -89,7 +89,7 @@ function addonp_settings_load_css( $hook ){
     if( $addon_settings != $hook ) {
         return;
     } else {
-        wp_register_style(  'addonp_switchery_css', ADDONP_PLUGIN_URL . '/assets/css/switchery.css', array(), ADDONP_VERSION  );
+        wp_register_style(  'addonp_switchery_css', ADDONP_PLUGIN_URL . 'assets/css/switchery.css', array(), ADDONP_VERSION  );
         wp_enqueue_style(   'addonp_switchery_css');
     }
 }

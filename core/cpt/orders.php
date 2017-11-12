@@ -188,13 +188,13 @@ function addonp_custom_orders_column_data( $column, $Order ) {
     $order_status_base			= get_post_status( $Order );
 
     if ( $order_status_base == 'addonp-pending-paid' ) {
-	    $order_status = 'Pending';
+	    $order_status = '<mark class="icon-hour-glass tips">Pending</mark>';
     } elseif ( $order_status_base == 'addonp-paid' ) {
-	    $order_status = 'Paid';
+	    $order_status = '<mark class="icon-checkmark tips">Paid</mark>';
     } elseif ( $order_status_base == 'addonp-suspended' ) {
-	    $order_status = 'Suspended';
+	    $order_status = '<mark class="icon-warning tips">Suspended</mark>';
     } elseif ( $order_status_base == 'addonp-error' ) {
-	    $order_status = 'Error';
+	    $order_status = '<mark class="icon-blocked tips">Error</mark>';
     }
 
 
@@ -217,3 +217,13 @@ function addonp_custom_orders_column_data( $column, $Order ) {
             break;
     }
 }
+
+function addon_load_custom_css_styles_orders() {
+	global $post_type;
+
+    if( 'addonp_orders' == $post_type ){
+        wp_register_style(  'addon_orders_css', ADDONP_PLUGIN_URL . 'assets/css/order-list.css', array(), ADDONP_VERSION  );
+        wp_enqueue_style(   'addon_orders_css');
+    }
+}
+add_action( 'admin_enqueue_scripts', 'addon_load_custom_css_styles_orders' );

@@ -56,3 +56,9 @@
 
 }
 add_filter( 'parent_file', 'addon_menu_hierarchy_correction' );
+
+function addon_load_custom_icon_styles() {
+    wp_register_style(  'addon_dashicons', ADDONP_PLUGIN_URL . 'assets/css/menu.css', false, ADDONP_VERSION );
+    wp_enqueue_style(   'addon_dashicons' );
+    }
+add_action( 'admin_enqueue_scripts', 'addon_load_custom_icon_styles' );

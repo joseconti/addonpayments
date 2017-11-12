@@ -2,9 +2,9 @@
     if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
     function addonp_custom_settings_load_js(){
-        wp_enqueue_script( 'addonp-switchery', ADDONP_PLUGIN_URL . '/assets/js/switchery.min.js',  array(), ADDONP_VERSION );
-        wp_enqueue_script( 'addonp-select2', ADDONP_PLUGIN_URL . '/assets/js/jquery.select2.js', array( 'jquery' ), ADDONP_VERSION );
-        wp_enqueue_script( 'addonp-select2-custom', ADDONP_PLUGIN_URL . '/assets/js/addonp.custom.js', array( 'addonp-select2' ), ADDONP_VERSION );
+        wp_enqueue_script( 'addonp-switchery', ADDONP_PLUGIN_URL . 'assets/js/switchery.min.js',  array(), ADDONP_VERSION );
+        wp_enqueue_script( 'addonp-select2', ADDONP_PLUGIN_URL . 'assets/js/jquery.select2.js', array( 'jquery' ), ADDONP_VERSION );
+        wp_enqueue_script( 'addonp-select2-custom', ADDONP_PLUGIN_URL . 'assets/js/addonp.custom.js', array( 'addonp-select2' ), ADDONP_VERSION );
     }
 
     function addonp_custom_settings_load_css( $hook ){
@@ -13,7 +13,7 @@
         if( $addon_settings != $hook ) {
             return;
             } else {
-                wp_register_style( 'addonp-select2-css', ADDONP_PLUGIN_URL . '/assets/css/select2.css', array(), ADDONP_VERSION );
+                wp_register_style( 'addonp-select2-css', ADDONP_PLUGIN_URL . 'assets/css/select2.css', array(), ADDONP_VERSION );
                 wp_enqueue_style( 'addonp-select2-css' );
            }
     }
@@ -23,12 +23,12 @@
         global $post;
 
         if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'addonpayments' ) ) {
-            wp_enqueue_script( 'addonp-select2-front', ADDONP_PLUGIN_URL . '/assets/js/jquery.select2.js', array( 'jquery' ), ADDONP_VERSION );
-            wp_enqueue_script( 'addonp-select2-custom-front', ADDONP_PLUGIN_URL . '/assets/js/addonp.front.custom.js', array( 'addonp-select2-front' ), ADDONP_VERSION );
+            wp_enqueue_script( 'addonp-select2-front', ADDONP_PLUGIN_URL . 'assets/js/jquery.select2.js', array( 'jquery' ), ADDONP_VERSION );
+            wp_enqueue_script( 'addonp-select2-custom-front', ADDONP_PLUGIN_URL . 'assets/js/addonp.front.custom.js', array( 'addonp-select2-front' ), ADDONP_VERSION );
             wp_enqueue_script( 'jquery-ui-accordion' );
-            wp_register_style( 'addonp-select2-css-front', ADDONP_PLUGIN_URL . '/assets/css/select2.css', array(), ADDONP_VERSION );
-            wp_register_style( 'addonp-pure-css', ADDONP_PLUGIN_URL . '/assets/css/pure-min.css', array(), ADDONP_VERSION );
-            wp_register_style( 'addonp-custom-css-front', ADDONP_PLUGIN_URL . '/assets/css/custom-css-front.css', array(), ADDONP_VERSION );
+            wp_register_style( 'addonp-select2-css-front', ADDONP_PLUGIN_URL . 'assets/css/select2.css', array(), ADDONP_VERSION );
+            wp_register_style( 'addonp-pure-css', ADDONP_PLUGIN_URL . 'assets/css/pure-min.css', array(), ADDONP_VERSION );
+            wp_register_style( 'addonp-custom-css-front', ADDONP_PLUGIN_URL . 'assets/css/custom-css-front.css', array(), ADDONP_VERSION );
             wp_enqueue_style(  'addonp-select2-css-front' );
             wp_enqueue_style(  'addonp-pure-css'          );
             wp_enqueue_style(  'addonp-custom-css-front'  );
@@ -1225,7 +1225,6 @@
                             <input type="hidden" name="PROD_ID" value="' . $atts['product'] . '">' .
                             $nonce_field .
                             '<button type="submit" class="pure-button pure-input-1-2 pure-button-primary">' . $text_pay_now_button . '</button>
-
                     </form>
                     </div>
                 </div>';
