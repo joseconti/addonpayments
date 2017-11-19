@@ -592,8 +592,8 @@
     register_setting('addonp-advanced-settings-section', 'addonp_percent_tax_field'                      );
     register_setting('addonp-advanced-settings-section', 'addonp_country_tax_label_field'                );
     register_setting('addonp-advanced-settings-section', 'addonp_apply_retention_field'                  );
-    register_setting('addonp-advanced-settings-section', 'addonp_percent_retention_field'                );
-    register_setting('addonp-advanced-settings-section', 'addonp_country_retention_label_field'          );
+    register_setting('addonp-advanced-settings-section', 'addonp_percent_retention_field'                );  
+    register_setting('addonp-advanced-settings-section', 'addonp_country_retention_label_field'          );    
     register_setting('addonp-advanced-settings-section', 'addonp_apply_retention_to_private_field'       );
     register_setting('addonp-advanced-settings-section', 'addonp_apply_retention_to_business_field'      );
     register_setting('addonp-advanced-settings-section', 'addonp_apply_retention_to_self_employed_field' );

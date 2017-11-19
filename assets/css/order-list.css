@@ -74,3 +74,15 @@
 	font-size: 1.4em;
 	margin: 0 auto
 }
+.column-order_status {
+    width: 45px;
+}
+.column-product{
+    width: 125px;
+}
+.column-customer_name, .column-email{
+    width: 200px;
+}
+.column-primary{
+    width: 350px;
+}
