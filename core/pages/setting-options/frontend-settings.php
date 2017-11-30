@@ -26,6 +26,8 @@
 			'shipping_postcode' 		=> __( 'Shipping Postcode', 		    'addonpayments' ),
 			'shipping_address' 			=> __( 'Shipping Address', 			    'addonpayments' ),
 			'shipping_email' 			=> __( 'Shipping Email', 			    'addonpayments' ),
+			'shipping_phone' 			=> __( 'Shipping Phone', 			    'addonpayments' ),
+			'shipping_city' 			=> __( 'Shipping City', 			    'addonpayments' ),
 		);
 
 	   ?>
@@ -47,6 +49,8 @@
 			'billing_postcode' 			=> __( 'Billing Postcode', 			'addonpayments' ),
 			'billing_address' 			=> __( 'Billing Address', 			'addonpayments' ),
 			'billing_email' 			=> __( 'Billing Email', 			'addonpayments' ),
+			'billing_phone' 			=> __( 'Billing Phone', 			'addonpayments' ),
+			'billing_city' 			    => __( 'Billing City', 			    'addonpayments' ),
 		);
 
 	   ?>

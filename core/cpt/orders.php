@@ -38,7 +38,7 @@ function addonp_orders_ctp() {
         'label'                 => __( 'Order', 'addonpayments' ),
         'description'           => __( 'Orders from AddonPayments', 'addonpayments' ),
         'labels'                => $labels,
-        'supports'              => array( 'title', 'custom-fields', ),
+        'supports'              => false,
         'hierarchical'          => false,
         'public'                => false,
         'show_ui'               => true,
@@ -50,7 +50,10 @@ function addonp_orders_ctp() {
         'has_archive'           => false,
         'exclude_from_search'   => true,
         'publicly_queryable'    => false,
-        'capability_type'       => 'page',
+        'capability_type'       => 'post',
+        'capabilities' => array(
+                        'create_posts' => false, // Removes support for the "Add New" function ( use 'do_not_allow' instead of false for multisite set ups )
+                        ),
          'map_meta_cap'         => true,
     );
     register_post_type( 'addonp_orders', $args );
@@ -227,3 +230,138 @@ function addon_load_custom_css_styles_orders() {
     }
 }
 add_action( 'admin_enqueue_scripts', 'addon_load_custom_css_styles_orders' );
+
+/***************************************************/
+/************* Metabox AddonPayments Order *****************/
+/***************************************************/
+
+/**
+ * Register meta box(es).
+ */
+function addonp_order_register_meta_box() {
+    add_meta_box( 'addonpmetaboxorder', __( 'Order', 'addonpayments' ), 'addonp_metabox_order_callback', 'addonp_orders', 'normal', 'high' );
+}
+add_action( 'add_meta_boxes', 'addonp_order_register_meta_box' );
+
+/**
+ * Meta box display callback.
+ *
+ * @param WP_Post $post Current post object.
+ */
+function addonp_metabox_order_callback( $post ) {
+
+    $Order 						= get_post_meta( $post->ID, '_addonp_order_id',					true );
+    $user_type 					= get_post_meta( $post->ID, '_addonp_user_type',				true );
+    $Full_Name 					= get_post_meta( $post->ID, '_addonp_Full_Name',				true );
+    $shipping_country 			= get_post_meta( $post->ID, '_addonp_shipping_country',			true );
+    $shipping_state 			= get_post_meta( $post->ID, '_addonp_shipping_state',			true );
+    $shipping_postcode 			= get_post_meta( $post->ID, '_addonp_shipping_postcode',		true );
+    $shipping_address 			= get_post_meta( $post->ID, '_addonp_shipping_address',			true );
+    $shipping_email 			= get_post_meta( $post->ID, '_addonp_shipping_email',			true );
+    $shipping_phone 			= get_post_meta( $post->ID, '_addonp_shipping_phone_order',		true );
+    $shipping_city 		    	= get_post_meta( $post->ID, '_addonp_shipping_city_order',		true );
+
+    $full_name_billing 			= get_post_meta( $post->ID, '_addonp_full_name_billing',		true );
+    $nic_tic_vat_name_billing	= get_post_meta( $post->ID, '_addonp_nic_tic_vat_name_billing',	true );
+    $billing_country 			= get_post_meta( $post->ID, '_addonp_billing_country',			true );
+    $billing_state 				= get_post_meta( $post->ID, '_addonp_billing_state',			true );
+    $billing_postcode 			= get_post_meta( $post->ID, '_addonp_billing_postcode',			true );
+    $billing_address 			= get_post_meta( $post->ID, '_addonp_billing_address',			true );
+    $billing_email 				= get_post_meta( $post->ID, '_addonp_billing_email',			true );
+    $billing_phone 			    = get_post_meta( $post->ID, '_addonp_billing_phone_order',		true );
+    $billing_city 		    	= get_post_meta( $post->ID, '_addonp_billing_city_order',		true );
+
+    $PROD_ID 					= get_post_meta( $post->ID, '_addonp_PROD_ID',					true );
+    $COMMENT1 					= get_post_meta( $post->ID, '_addonp_COMMENT1',					true );
+
+    $base_price 				= get_post_meta( $post->ID, '_addonp_base_price',				true );
+    $tax 						= get_post_meta( $post->ID, '_addonp_tax_price',				true );
+    $percent_tax 				= get_post_meta( $post->ID, '_addonp_tax_apply',				true );
+    $percent_retention 			= get_post_meta( $post->ID, '_addonp_retention_apply',			true );
+    $retention 					= get_post_meta( $post->ID, '_addonp_retention_price',			true );
+    $post_permanlink 			= get_post_meta( $post->ID, '_addonp_link_where_bought',		true );
+    $final_price 				= get_post_meta( $post->ID, '_addonp_final_price_addon',		true );
+	$result 					= get_post_meta( $post->ID, '_addonp_order_result',				true );
+    $authcode 					= get_post_meta( $post->ID, '_addonp_order_authcode',			true );
+    $pasref 					= get_post_meta( $post->ID, '_addonp_order_passref',			true );
+    $avspostcoderesponse 		= get_post_meta( $post->ID, '_addonp_order_passref',			true );
+    $avsaddressresponse 		= get_post_meta( $post->ID, '_addonp_order_avsaddressresponse',	true );
+    $cvnresult 					= get_post_meta( $post->ID, '_addonp_order_cvnresult',   		true );
+    $account 					= get_post_meta( $post->ID, '_addonp_order_account',       		true );
+    $batchid 					= get_post_meta( $post->ID, '_addonp_order_batchid',			true );
+    $key_product 				= get_post_meta( $post->ID, '_addonp_order_key_product',		true );
+
+    if ( $COMMENT1 ) {
+	    $customer_order_notes = $COMMENT1;
+    } else {
+	    $customer_order_notes = __( "There aren't comments for this order", 'addonpayments' );
+    }
+
+    ?>
+    <div id="addonp_content_metabox">
+
+        <div id="order_data" class="panel">
+
+			<h2><?php echo __('Details for Order ID #', 'addonpayments' ) . $post->ID; ?> </h2>
+
+			<div class="order_data_column_container">
+
+				<div class="order_data_column">
+					<h3>
+						<?php _e('Billing Details', 'addonpayments' ); ?>
+					</h3>
+					<div class="address">
+						<p>
+							<strong><?php _e('Adress:  ', 'addonpayments' ); ?></strong> <?php echo $full_name_billing; ?><br>
+							<?php echo $full_name_billing; ?><br>
+							<?php echo $billing_address; ?><br>
+							<?php echo $billing_postcode . ' ' . $billing_city . '<br>'; ?>
+							<?php echo $billing_state . '<br>'; ?>
+							<?php echo $billing_country; ?>
+						</p>
+					</div>
+					<p>
+						<strong><?php _e('Email: ', 'addonpayments' ); ?></strong><a href="mailto:<?php echo $billing_email; ?>"><?php echo $billing_email; ?></a>
+					</p>
+					<p>
+						<strong><?php _e('Phone: ', 'addonpayments' ); ?></strong> <?php echo $billing_phone; ?>
+					</p>
+				</div>
+
+				<div class="order_data_column">
+
+					<h3>
+						<?php _e('Shipping Details', 'addonpayments' ); ?>
+					</h3>
+					<div class="address">
+						<p>
+							<strong><?php _e('Adress:  ', 'addonpayments' ); ?></strong> <?php echo $Full_Name; ?><br>
+							<?php echo $Full_Name; ?><br>
+							<?php echo $shipping_address; ?><br>
+							<?php echo $shipping_postcode . ' ' . $shipping_city . '<br>'; ?>
+							<?php echo $shipping_state . '<br>'; ?>
+							<?php echo $shipping_country; ?>
+						</p>
+					</div>
+					<p>
+						<strong><?php _e('Email: ', 'addonpayments' ); ?></strong><a href="mailto:<?php echo $shipping_email; ?>"><?php echo $shipping_email; ?></a>
+					</p>
+					<p>
+						<strong><?php _e('Phone: ', 'addonpayments' ); ?></strong> <?php echo $shipping_phone; ?>
+					</p>
+				</div>
+
+				<p>
+					<strong><?php _e('Customer notes about Order: ', 'addonpayments' ); ?></strong><br />
+					<?php echo $customer_order_notes; ?>
+				</p>
+
+			</div>
+
+			<div class="clear"></div>
+
+		</div>
+
+	</div>
+
+<?php }

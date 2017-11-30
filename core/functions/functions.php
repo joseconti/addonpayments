@@ -245,6 +245,11 @@
             if ( $_POST['COMMENT1']                 ) $COMMENT1                 = sanitize_text_field( $_POST['COMMENT1']                 );
             if ( $_POST['base_price']               ) $base_price               = sanitize_text_field( $_POST['base_price']               );
             if ( $_POST['post_permanlink']          ) $post_permanlink          = sanitize_text_field( $_POST['post_permanlink']          );
+            if ( $_POST['billing_phone']            ) $billing_phone            = sanitize_text_field( $_POST['billing_phone']            );
+            if ( $_POST['shipping_phone']           ) $shipping_phone           = sanitize_text_field( $_POST['shipping_phone']           );
+            if ( $_POST['billing_city']             ) $billing_city             = sanitize_text_field( $_POST['billing_city']             );
+            if ( $_POST['shipping_city']            ) $shipping_city            = sanitize_text_field( $_POST['shipping_city']            );
+
 
             // Saved Options
 
@@ -360,6 +365,11 @@
             add_post_meta( $Order, '_addonp_retention_price',           $retention,                 true );
             add_post_meta( $Order, '_addonp_link_where_bought',         $post_permanlink,           true );
             add_post_meta( $Order, '_addonp_final_price_addon',         $final_price,               true );
+            add_post_meta( $Order, '_addonp_billing_phone_order',       $billing_phone,             true );
+            add_post_meta( $Order, '_addonp_shipping_phone_order',      $shipping_phone,            true );
+            add_post_meta( $Order, '_addonp_shipping_city_order',       $shipping_city,             true );
+            add_post_meta( $Order, '_addonp_billing_city_order',        $billing_city,              true );
+
 
             $string_sha1_1 = sha1( $timestamp . '.' . $merchand_id . '.' . $Order . '.' . $final_price . '.' . $currency );
             $string_sha1_2 = sha1( $string_sha1_1 . '.' . $secret );
@@ -574,6 +584,12 @@
             $Full_Name = '<input type="text" name="Full_Name" class="pure-input-1-2" placeholder="' . __('Full Name', 'addonpayments' ) . '" required>';
         } else {
             $Full_Name = '';
+        }
+
+        if ( ! empty( $shipping_fields ) && in_array( 'shipping_city', $shipping_fields ) ) {
+            $shipping_city = '<input type="text" name="shipping_city" class="pure-input-1-2" placeholder="' . __('Shipping City', 'addonpayments' ) . '" required>';
+        } else {
+            $shipping_city = '';
         }
 
         if ( ! empty( $shipping_fields ) && in_array( 'shipping_country', $shipping_fields ) ) {
@@ -852,6 +868,12 @@
             $shipping_email = '';
         }
 
+        if ( ! empty( $shipping_fields ) && in_array( 'shipping_phone', $shipping_fields ) ) {
+            $shipping_phone = '<input type="text" name="shipping_phone" class="pure-input-1-2" placeholder="' . __('Shipping Phone', 'addonpayments' ) . '" required>';
+        } else {
+            $shipping_phone = '';
+        }
+
         // Billing fields
 
         if ( ! empty( $billing_fields ) && in_array( 'full_name_billing', $billing_fields ) ) {
@@ -864,6 +886,12 @@
             $nic_tic_vat_name_billing = '<input type="text" name="nic_tic_vat_name_billing" class="pure-input-1-2" placeholder="' . __('NIC, TIC, VAT Number', 'addonpayments' ) . '">';
         } else {
             $nic_tic_vat_name_billing = '';
+        }
+
+        if ( ! empty( $billing_fields ) && in_array( 'billing_city', $billing_fields ) ) {
+            $billing_city = '<input type="text" name="billing_city" class="pure-input-1-2" placeholder="' . __('Billing City', 'addonpayments' ) . '">';
+        } else {
+            $billing_city = '';
         }
 
         if ( ! empty( $billing_fields ) && in_array( 'billing_country', $billing_fields ) ) {
@@ -1142,6 +1170,12 @@
             $billing_email = '';
         }
 
+         if ( ! empty( $billing_fields ) && in_array( 'billing_phone', $billing_fields ) ) {
+            $billing_phone = '<input type="text" name="billing_phone" class="pure-input-1-2" placeholder="' . __('Billing Phone', 'addonpayments' ) . '">';
+        } else {
+            $billing_phone = '';
+        }
+
         if ( ! empty( $shipping_fields ) ) {
             if ( empty( $billing_fields ) ) {
                 $full = '-full';
@@ -1154,9 +1188,11 @@
                                     $Full_Name .
                                     $shipping_country .
                                     $shipping_state .
-                                    $shipping_postcode .
+                                    $shipping_city .
                                     $shipping_address .
+                                    $shipping_postcode .
                                     $shipping_email .
+                                    $shipping_phone .
                                 '</div>';
         } else {
             $shipping_content = '';
@@ -1174,9 +1210,11 @@
                                     $nic_tic_vat_name_billing .
                                     $billing_country .
                                     $billing_state .
-                                    $billing_postcode .
+                                    $billing_city .
                                     $billing_address .
+                                    $billing_postcode .
                                     $billing_email .
+                                    $billing_phone .
                                 '</div>';
         } else {
             $billing_fields = '';
