@@ -16,7 +16,7 @@
 	                    'heading' => __( 'ID' ),
 	                    'param_name' => 'id',
 	                    'value' => '',
-	                    'description' => __( 'Add an ID for this product block. This is mandatory if you add more that a product and has to be unique on this page', 'addonpayments' ),
+	                    'description' => __( 'Add an ID for this product block. This is mandatory if you add more than one product and has to be unique on this page', 'addonpayments' ),
 	                    'admin_label' => true,
 	                ),
 	                array(
