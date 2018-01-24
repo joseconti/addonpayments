@@ -472,8 +472,8 @@
             if ( isset( $_POST['MERCHANT_RESPONSE_URL'] ) ) $merchand_response_url  = sanitize_text_field( $_POST['MERCHANT_RESPONSE_URL']  );
             if ( isset( $_POST['COMMENT2'] ) )              $product                = sanitize_text_field( $_POST['COMMENT2']               );
 
-            $merchand_id = get_option( 'addonp_merchant_id_field'   );
-            $secret      = get_option( 'addonp_shared_secret_field' );
+            $merchand_id = addonp_get_merchand_id();
+            $secret      = addonp_get_secret();
             $final_price = get_post_meta( $order_id, '_addonp_final_price_addon', true );
 
             $strkey      = 'abcdefghijklmnopqrstuvwxyzABCEDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
