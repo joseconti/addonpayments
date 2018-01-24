@@ -90,6 +90,42 @@
         return $text_result;
     }
 
+    function addonp_get_secret(){
+
+	    $test = get_option( 'addonp_test_mode_field' );
+
+	    if ( $test == '1' ) {
+		    $secret = get_option( 'addonp_shared_secret_test_field' );
+		    } else {
+			    $secret = get_option( 'addonp_shared_secret_field' );
+				}
+        return $secret;
+    }
+
+    function addonp_get_merchand_id(){
+
+	    $test = get_option( 'addonp_test_mode_field' );
+
+	    if ( $test == '1' ) {
+		    $merchand_id = get_option( 'addonp_merchant_id_test_field' );
+		    } else {
+			    $merchand_id = get_option( 'addonp_merchant_id_field' );
+				}
+        return $merchand_id;
+	}
+
+	function addonp_get_account(){
+
+	    $test = get_option( 'addonp_test_mode_field' );
+
+	    if ( $test == '1' ) {
+		    $account = get_option( 'addonp_account_test_field' );
+		    } else {
+			    $account = get_option( 'addonp_account_field' );
+				}
+        return $account;
+	}
+
     // Add Shortcode
     function addonp_price_shortcode( $atts ) {
         global $wp;
@@ -254,15 +290,15 @@
             // Saved Options
 
             $test                             = get_option( 'addonp_test_mode_field'                 );
-            $merchand_id                      = get_option( 'addonp_merchant_id_field'               );
-            $secret                           = get_option( 'addonp_shared_secret_field'             );
+            $merchand_id                      = addonp_get_merchand_id();
+            $secret                           = addonp_get_secret();
             $tax_active                       = get_option( 'addonp_price_with_tax_field'            );
             $price_with_tax                   = get_option( 'addonp_price_with_or_without_tax_field' );
             $percent_tax                      = get_option( 'addonp_percent_tax_field'               );
             $retention                        = get_option( 'addonp_apply_retention_field'           );
             $percent_retention                = get_option( 'addonp_percent_retention_field'         );
             $currency                         = get_option( 'addonp_currency_field'                  );
-            $account                          = get_option( 'addonp_account_field'                   );
+            $account                          = addonp_get_account();
             $auto_set_flag                    = get_option( 'addonp_auto_set_flag_field'             );
             $timestamp                        = date("YmdHis");
             $str                              = 'abcdefghijklmnABCEDEFGHIJKLMNO1234567890';
